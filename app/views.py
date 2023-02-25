@@ -8,7 +8,7 @@ import os
 def product(request):
     products=Product.objects.all()
     cate=CategoryModel.objects.all()
-    return render(request,'product.html',{'products':products,'cate':cate})
+    return render(request,'index.html',{'products':products,'cate':cate})
 
 
 # insert Category
@@ -44,10 +44,10 @@ def insert_product(request):
         prod=Product(product_name=product_name,product_image=product_image,product_price=product_price,product_category=product_category)
         prod.save()
         products=Product.objects.all()
-        return render(request,'product.html',{'products':products})
+        return render(request,'index.html',{'products':products})
     else:
         products=Product.objects.all()
-        return render(request,'product.html',{'products':products})
+        return render(request,'index.html',{'products':products})
 
 
 
@@ -64,7 +64,7 @@ def update_product(request,id):
         update.product_price=request.POST.get('product_price')
         update.save()
         products=Product.objects.all()
-        return render(request,'product.html',{'products':products})
+        return render(request,'index.html',{'products':products})
     context = {'update':update,'cate':cate}
     return render(request,"edit_product.html",context)
 
@@ -74,4 +74,4 @@ def delete_product(request,id):
     datas =Product.objects.get(pk=id)
     datas.delete()
     products = Product.objects.all()
-    return render(request,'product.html',{'products':products})
+    return render(request,'index.html',{'products':products})
