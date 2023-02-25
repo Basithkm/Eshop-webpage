@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Category{% endblock title %}Home
+
+
+
+{% block main-content%}
+<center><h1>Categories Page</h1></center>
+	<div class="container">
+		<form method="POST" action="/insert_category" eenctype="multipart/form-data">
+			{% csrf_token %} 
+			<label for="category_name">Category Name:</label>
+			<input type="text" name="category_name" required>
+
+			<input type="submit" value="Add Category">
+		</form>
+	</div>
+
+	<div class="container">
+		<h1>Categories</h1>
+				<table>
+					<thead>
+						<tr>
+							<th>SN No</th>
+							<th>Category Name</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{%for i in info%}
+						<tr>
+							<td>{{i.id}}</td>
+							<td>{{i.category_name}}</td>
+							<td class="actions">
+								<a href="{% url 'update_category' i.id%}"><button>Edit</button></a>
+
+							</td>
+						</tr>
+						{%endfor%}
+				
+					</tbody>
+				</table>
+	</div>
+	
+{%endblock main-content%}

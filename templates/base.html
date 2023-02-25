@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="{% static 'img/milk.png' %}" type="image/png">
+	<title>Eshop Webpage</title>
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+	<header>
+		<h1>Eshop</h1>
+		<nav>
+			<ul>
+				<li><a href="{% url 'product' %}">Product</a></li>
+				<li><a href="{% url 'insert_category' %}">Category</a></li>
+			</ul>
+		</nav>
+	</header>
+	{%block main-content %} {%endblock main-content%}
+	{%block information %} {%endblock information%}
+	{%block editproduct%}{%endblock%}
+	{%block editcategory%}{%endblock%}
+</body>
+</html>

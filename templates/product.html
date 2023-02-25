@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Product{% endblock title %}Home
+
+
+{% block information%}
+
+	<center><h1>Products Page</h1></center>
+	<br>	
+	<form action="/insert_product" method="POST" enctype="multipart/form-data">
+		{% csrf_token %} 
+
+		<label for="product_category">Product Name:</label>
+		<input type="text" name="product_category" required>
+
+
+		<label for="product_name">Product Category:</label>
+			<select  name="product_name" required>
+			<option value="">Select a Category</option>
+			{%for i in cate %}
+			<option value={{i.category_name}}>{{i.category_name}}</option>
+			{%endfor%}	
+		</select> 
+
+		<label for="product_image">Product Image:</label>
+		<input type="file" name="product_image"  required>
+
+
+		<label for="product_price">Product Price:</label>
+		<input type="text" name="product_price" required>
+
+		<input type="submit" value="Add Product">
+	</form>
+	<br><br>
+	{%for i in products %}
+	<div class="container">
+		<div class="product">
+			<img src="{{i.product_image.url}}" width="1700" height="100" alt="Product Image">
+			<div class="product-details">
+				<h2>Name  :{{i.product_category}}</h2>
+				<h5>Category  :{{i.product_name}}</h5>
+				<h5>Price:{{i.product_price}}</h5>
+                <a href="{% url 'update_product' i.id%}"><button>Edit</button></a>
+				<br>
+                <a href="{% url 'delete_product' i.id%}"><button>Delete</button></a>
+			</div>	
+		</div>
+	</div>
+
+	{%endfor%}
+
+	{%endblock information%}
