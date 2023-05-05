@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>Add Product</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="category">Category:</label>
+    <select name="category" id="category">
+      {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      {% endfor %}
+    </select><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price"><br>
+
+    <label for="city">City:</label>
+    <select name="city" id="city">
+      {% for city in cities %}
+        <option value="{{ city.id }}">{{ city.name }}</option>
+      {% endfor %}
+    </select><br>
+
+    <label for="district">District:</label>
+    <select name="district" id="district">
+      {% for districts in districts %}
+        {% comment %} {% if districts.city == selected_city %} {% endcomment %}
+          <option value="{{ districts.id }}">{{ districts.name }}</option>
+        {% comment %} {% endif %} {% endcomment %}
+      {% endfor %}
+    </select><br>
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

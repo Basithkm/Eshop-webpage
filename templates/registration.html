@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required>
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" required>
+        <div id="map"></div>
+        <input type="hidden" name="latitude" id="latitude" required>
+        <input type="hidden" name="longitude" id="longitude" required>
+        <button type="submit">Register</button>
+      </form>
+    
+      <script src="https://maps.googleapis.com/maps/api/js?key=<YOUR_API_KEY>&callback=initMap"></script>
+      <script>
+        var map;
+        function initMap() {
+          var location = {lat: 37.0902, lng: -95.7129}; // Default location (USA)
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: location,
+            zoom: 8
+          });
+          
+          var geocoder = new google.maps.Geocoder();
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            draggable: true
+          });
+    
+          document.getElementById('location').addEventListener('change', function() {
+            geocoder.geocode({'address': this.value}, function(results, status) {
+              if (status === 'OK') {
+                var location = results[0].geometry.location;
+                map.setCenter(location);
+                marker.setPosition(location);
+                document.getElementById('latitude').value = location.lat();
+                document.getElementById('longitude').value = location.lng();
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+          });
+    
+          google.maps.event.addListener(marker, 'dragend', function(event) {
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+          });
+        }
+      </script>
+</body>
+</html>

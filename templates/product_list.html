@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Products</h2>
+    <table>
+      <thead>
+        <tr>
+            <th>id</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>City</th>
+          <th>District</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.city.name }}</td>
+            <td>{{ product.district.name }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">No products found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+</body>
+</html>

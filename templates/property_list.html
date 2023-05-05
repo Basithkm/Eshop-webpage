@@ -1,0 +1,28 @@
+<h1>Property List</h1>
+<a href="{% url 'add_property' %}">Add Property</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for property in properties %}
+            <tr>
+                <td>{{ property.name }}</td>
+                <td>{{ property.category }}</td>
+                <td>{{ property.details.location }}</td>
+                <td>{{ property.details.price }}</td>
+                <td>
+                    <a href="{% url 'property_details' property.id %}">Details</a>
+                    <a href="{% url 'edit_property' property.id %}">Edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

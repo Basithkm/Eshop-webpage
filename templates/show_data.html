@@ -1,0 +1,13 @@
+<h1>My Data</h1>
+{% for my_model in my_models %}
+    <h2>{{ my_model.name }}</h2>
+    {% if my_model.images.all %}
+        <ul>
+        {% for image in my_model.images.all %}
+            <li><img src="{{ image.file.url }}"></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No images found.</p>
+    {% endif %}
+{% endfor %}

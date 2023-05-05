@@ -1,0 +1,32 @@
+<h1>Edit Property</h1>
+
+<form action="{% url 'edit_property_details' property.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="{{ property.name }}" required>
+    <br>
+    <label for="category">Category:</label>
+    <select name="category" required>
+        <option value="rent" {% if property.category == 'rent' %} selected {% endif %}>Rent</option>
+        <option value="sale" {% if property.category == 'sale' %} selected {% endif %}>Sale</option>
+    </select>
+    <br>
+    <label for="location">Location:</label>
+    <input type="text" name="location" value="{{ property.details.location }}" required>
+    <br>
+    <label for="price">Price:</label>
+    <input type="number" name="price" value="{{ property.details.price }}" required>
+    <br>
+    {% if property.category == 'rent' %}
+        <label for="rent_price">Rent Price:</label>
+        <input type="number" name="rent_price" value="{{ property.rent_details.rent_price }}" required>
+    {% elif property.category == 'sale' %}
+        <label for="sale_price">Sale Price:</label>
+        <input type="number" name="sale_price" value="{{ property.sale_details.sale_price }}" required>
+    {% endif %}
+    <br>
+    <label for="images">Images:</label>
+    <input type="file" name="images" accept="image/*" multiple>
+    <br>
+    <input type="submit" value="Save">
+</form>

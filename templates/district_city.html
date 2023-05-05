@@ -1,0 +1,42 @@
+<!-- district_city.html -->
+<form method="post">
+  <label for="district">District:</label>
+  <select id="district" name="district">
+    <option value="">Select District</option>
+    {% for district in districts %}
+      <option value="{{ district.id }}">{{ district.name }}</option>
+    {% endfor %}
+  </select>
+  <br>
+  <label for="city">City:</label>
+  <select id="city" name="city">
+    <option value="">Select City</option>
+  </select>
+  <br>
+  <input type="submit" value="Submit">
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // When district dropdown value changes
+  $('#district').on('change', function() {
+    var districtId = $(this).val();
+    // Make an AJAX request to get cities for the selected district
+    $.ajax({
+      url: '/get_cities/', // Replace with your URL for getting cities
+      data: {
+        'district_id': districtId
+      },
+      success: function(data) {
+        // Clear previous options
+        $('#city').empty();
+        // Add options for cities
+        $.each(data, function(key, value) {
+          $('#city').append('<option value="' + key + '">' + value + '</option>');
+        });
+      }
+    });
+  });
+});
+</script>

@@ -1,0 +1,13 @@
+<h1>Property Details</h1>
+<p>Name: {{ property.name }}</p>
+<p>Category: {{ property.category }}</p>
+<p>Location: {{ property.details.location }}</p>
+<p>Price: {{ property.details.price }}</p>
+
+{% if property.category == 'rent' %}
+    <p>Rent Price: {{ property.rent_details.rent_price }}</p>
+{% elif property.category == 'sale' %}
+    <p>Sale Price: {{ property.sale_details.sale_price }}</p>
+{% endif %}
+
+<a href="{% url 'edit_property' property.id %}">Edit Property</a>

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-n06yk$biw(*+uhkyyhs$e_e@xlucv3^@u)j!ydokk07ll+2kbq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'geoposition',
     'app',
+    
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,12 +77,29 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'assessment',
+        'USER': 'basi',
+        'PASSWORD': 'Basith@123',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+
+
 
 
 # Password validation
@@ -120,6 +139,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL='/media/'
 MEDIA_ROOT =BASE_DIR/'media'
+
+STATIC_ROOT =os.path.join(BASE_DIR,'staticfiles')
+
+MEDIA_ROOT =os.path.join(BASE_DIR,'media')
 
 STATICFILES_DIRS =[
     os.path.join(BASE_DIR,'static')
